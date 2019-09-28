@@ -61,7 +61,7 @@ public class NotEnoughShinies {
     register(new Item(), "copper_coin", registry);
     register(new Item(), "silver_coin", registry);
     register(new Item(), "gold_coin", registry);
-    register(new WalletItem(), "wallet", registry);
+    register(new WalletItem().setMaxStackSize(1), "wallet", registry);
 
   }
 

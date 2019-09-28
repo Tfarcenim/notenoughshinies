@@ -60,7 +60,7 @@ public class WalletContainer extends Container {
       }
 
       else if (isCoin(itemstack)){
-        Util.addCoins(itemstack,wallet,world.isRemote);
+        Util.addCoins(itemstack,wallet);
         slot.putStack(ItemStack.EMPTY);
       }
       else /*if (!this.mergeItemStack(itemstack1, 0, 36, false))*/

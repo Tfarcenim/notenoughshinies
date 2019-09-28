@@ -11,8 +11,7 @@ public class Util {
     return stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
   }
 
-  public static void addCoins(ItemStack coins, ItemStack wallet, boolean isClient) {
-    //if (isClient)return;
+  public static void addCoins(ItemStack coins, ItemStack wallet) {
     final Item coin = coins.getItem();
     NBTTagCompound nbt = getTagSafely(wallet);
     if (coin == copper_coin) {
@@ -69,9 +68,8 @@ public class Util {
     wallet.setTagCompound(nbt);
   }
 
-
   public static void merge(ItemStack wallet) {
-    NBTTagCompound nbt = wallet.getTagCompound();
+    NBTTagCompound nbt = getTagSafely(wallet);
     int coppercount = nbt.getInteger("copper");
     int silvercount = nbt.getInteger("silver");
     int goldcount = nbt.getInteger("gold");

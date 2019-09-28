@@ -27,7 +27,7 @@ public class WalletItem extends Item {
       return false;
     }
     ItemStack rem = toPickup.copy();
-    Util.addCoins(rem,bag,false);
+    Util.addCoins(rem,bag);
 
     //leftovers
    // toPickup.setCount(rem.getCount());
