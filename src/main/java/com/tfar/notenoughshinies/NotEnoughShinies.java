@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.conditions.RandomChance;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -103,23 +104,38 @@ public class NotEnoughShinies {
       ResourceLocation rl = new ResourceLocation(name.getNamespace(), s1);
       if (rl.equals(new ResourceLocation(entry.mob))) {
 
-        LootFunction lootFunctionCopper = new SetCount(new LootCondition[0], new RandomValueRange(entry.copper));
+        LootCondition[] copperChance = new LootCondition[]{new RandomChance((float) entry.copper[2])};
+
+        LootFunction lootFunctionCopper = new SetCount(copperChance, new RandomValueRange((float) entry.copper[0], (float) entry.copper[1]));
         LootFunction[] lootFunctionsCopper = new LootFunction[]{lootFunctionCopper};
         LootEntry lootEntryCopper = new LootEntryItem(copper_coin, 1, 1, lootFunctionsCopper, new LootCondition[0], "copper");
 
-        LootFunction lootFunctionSilver = new SetCount(new LootCondition[0], new RandomValueRange(entry.silver));
+        LootCondition[] silverChance = new LootCondition[]{new RandomChance((float) entry.silver[2])};
+
+        LootFunction lootFunctionSilver = new SetCount(silverChance, new RandomValueRange((float) entry.silver[0], (float) entry.silver[1]));
         LootFunction[] lootFunctionsSilver = new LootFunction[]{lootFunctionSilver};
         LootEntry lootEntrySilver = new LootEntryItem(silver_coin, 1, 1, lootFunctionsSilver, new LootCondition[0], "silver");
 
-        LootFunction lootFunctionGold = new SetCount(new LootCondition[0], new RandomValueRange(entry.gold));
+        LootCondition[] goldChance = new LootCondition[]{new RandomChance((float) entry.gold[2])};
+
+        LootFunction lootFunctionGold = new SetCount(goldChance, new RandomValueRange((float) entry.gold[0], (float) entry.gold[1]));
         LootFunction[] lootFunctionsGold = new LootFunction[]{lootFunctionGold};
         LootEntry lootEntryGold = new LootEntryItem(gold_coin, 1, 1, lootFunctionsGold, new LootCondition[0], "gold");
 
+        LootEntry[] lootEntriesCopper = new LootEntry[]{lootEntryCopper};
+        LootPool lootPoolCopper = new LootPool(lootEntriesCopper, copperChance, new RandomValueRange(1), new RandomValueRange(0), "copper_pool");
 
-        LootEntry[] lootEntries = new LootEntry[]{lootEntryCopper, lootEntrySilver, lootEntryGold};
-        LootPool pool = new LootPool(lootEntries, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0), "coin_pool");
+        LootEntry[] lootEntriesSilver = new LootEntry[]{lootEntrySilver};
+        LootPool lootPoolSilver = new LootPool(lootEntriesSilver, silverChance, new RandomValueRange(1), new RandomValueRange(0), "silver_pool");
+
+        LootEntry[] lootEntriesGold = new LootEntry[]{lootEntryGold};
+        LootPool lootPoolGold = new LootPool(lootEntriesGold, goldChance, new RandomValueRange(1), new RandomValueRange(0), "gold_pool");
+
         LootTable table = event.getTable();
-        table.addPool(pool);
+        table.addPool(lootPoolCopper);
+        table.addPool(lootPoolSilver);
+        table.addPool(lootPoolGold);
+
       }
     }
   }

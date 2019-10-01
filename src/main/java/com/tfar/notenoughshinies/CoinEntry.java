@@ -3,11 +3,11 @@ package com.tfar.notenoughshinies;
 public class CoinEntry {
 
   public final String mob;
-  public final int copper;
-  public final int silver;
-  public final int gold;
+  public final double[] copper;
+  public final double[] silver;
+  public final double[] gold;
 
-  public CoinEntry(String mob, int copper, int silver, int gold) {
+  public CoinEntry(String mob, double[] copper, double[] silver, double[] gold) {
     this.mob = mob;
     this.copper = copper;
     this.silver = silver;
